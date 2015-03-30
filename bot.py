@@ -2,7 +2,10 @@ from twisted.words.protocols import irc
 from twisted.internet import protocol
 import re
 
-class IrcBot(irc.IRCCLIENT):
+def load_modules():
+    pass  #have fun
+
+class IrcBot(irc.IRCClient):
     def _get_nickname(self):
         return self.factory.nickname
     nickname = property(_get_nickname)
@@ -15,12 +18,13 @@ class IrcBot(irc.IRCCLIENT):
         print "Joined %s." % (channel,)
 
     def privmsg(self, user, channel, msg):
+        print msg
         if not user:
             return
         if self.username in msg:
             msg = re.compile(self.nickname + "[:,]* ?", re.I).sub('', msg)
             prefix = "%s: " % (user.split('!', 1)[0], )
-            self.msg(prefix + ": this is a message")
+            self.msg(self.factory.channel, prefix + ": this is a message")
         else:
             prefix = ''
 
@@ -39,18 +43,10 @@ class IrcBotFactory(protocol.ClientFactory):
     def clientConnectionFailed(self, connector, reason):
         print "Could not connect: %s" % (reason,)
 
-import sys
 from twisted.internet import reactor
 
 if __name__ == "__main__":
-    chan = sys.argv[1]
+    load_modules()
+    chan = 'lw-pomodoro'  #sys.argv[1]
     reactor.connectTCP('irc.freenode.net', 6667, IrcBotFactory('#' + chan))
     reactor.run()
-
-
-
-
-
-
-
-
