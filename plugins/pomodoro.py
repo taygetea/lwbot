@@ -33,7 +33,8 @@ class Pomodoro():
         split = self.pomodoros.pop()
         break_ = split[1]
         # IMPLEMENT: However we want to wait X minutes for the break
-        
+        self.pomodoro_start()
+
     def pomodoro_start(self):
         """Start the next pomodoro on the stack."""
         # IMPLEMENT: Schedule an event working minutes in the future for pomodoro
