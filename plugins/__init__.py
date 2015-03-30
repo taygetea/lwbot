@@ -5,4 +5,5 @@ modules = {}
 for module in listdir(current_directory):
     if module[-2:] == "py" and module is not "__init__.py":
         modname = module.split(".")[0]
-        plugins.pomodoro = __import__("plugins." + "pomodoro.py")
+        modname_mod = __import__("pomodoro", globals(), locals())
+        modules[modname] = modname_mod 
