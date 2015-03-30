@@ -1,9 +1,10 @@
 from twisted.words.protocols import irc
 from twisted.internet import protocol
 import re
+import plugins
 
-def load_modules():
-    pass  #have fun
+def load_modules(plugins):
+  dir(plugins)
 
 class IrcBot(irc.IRCClient):
     def _get_nickname(self):
@@ -45,8 +46,13 @@ class IrcBotFactory(protocol.ClientFactory):
 
 from twisted.internet import reactor
 
-if __name__ == "__main__":
-    load_modules()
-    chan = 'lw-pomodoro'  #sys.argv[1]
-    reactor.connectTCP('irc.freenode.net', 6667, IrcBotFactory('#' + chan))
-    reactor.run()
+plugins.modules["pomodoro"].pomo()
+
+
+
+
+# if __name__ == "__main__":
+#    load_modules()
+#    chan = 'lw-pomodoro'  #sys.argv[1]
+#    reactor.connectTCP('irc.freenode.net', 6667, IrcBotFactory('#' + chan))
+#    reactor.run()
