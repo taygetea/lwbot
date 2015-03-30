@@ -1,0 +1,1 @@
+/root/ircbot/bot.py
