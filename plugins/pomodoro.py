@@ -1,12 +1,14 @@
 from twisted.words.protocols import irc
 from twisted.internet import protocol
 from twisted.internet import reactor
+import bot
 
 class Pomodoro():
     """A pomodoro timer."""
     def __init__(self):
         pomodoros = []
-
+        commands = {"start": self.pomodoro_start,
+                    "clear": self.clear_pomodoros}
     def pomo(self):
         pass
 
@@ -35,10 +37,12 @@ class Pomodoro():
         # IMPLEMENT: However we want to wait X minutes for the break
         self.pomodoro_start()
 
-    def pomodoro_start(self):
+    def pomodoro_start(self):#
         """Start the next pomodoro on the stack."""
+        print "foo"
         # IMPLEMENT: Schedule an event working minutes in the future for pomodoro
         # to end at and break to start.
+
 
     def send_pomodoros(self, target):
         """Send a list of pomodoros on the stack to the user or channel specified by target."""
