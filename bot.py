@@ -3,8 +3,7 @@ from twisted.internet import protocol
 import re
 import plugins
 
-def load_modules(plugins):
-  dir(plugins)
+print plugins.modules
 
 class IrcBot(irc.IRCClient):
     def _get_nickname(self):
@@ -25,7 +24,7 @@ class IrcBot(irc.IRCClient):
         if self.username in msg:
             msg = re.compile(self.nickname + "[:,]* ?", re.I).sub('', msg)
             prefix = "%s: " % (user.split('!', 1)[0], )
-            self.msg(self.factory.channel, prefix + ": this is a message")
+            self.msg(self.factory.channel, prefix + "this is a message")
         else:
             prefix = ''
 
@@ -33,7 +32,7 @@ class IrcBot(irc.IRCClient):
 class IrcBotFactory(protocol.ClientFactory):
     protocol = IrcBot
 
-    def __init__(self, channel, nickname='LWBot'):
+    def __init__(self, channel, nickname='lwbot'):
         self.channel = channel
         self.nickname = nickname
 
@@ -46,13 +45,7 @@ class IrcBotFactory(protocol.ClientFactory):
 
 from twisted.internet import reactor
 
-plugins.modules["pomodoro"].pomo()
-
-
-
-
-# if __name__ == "__main__":
-#    load_modules()
-#    chan = 'lw-pomodoro'  #sys.argv[1]
-#    reactor.connectTCP('irc.freenode.net', 6667, IrcBotFactory('#' + chan))
-#    reactor.run()
+if __name__ == "__main__":
+    chan = 'lw-pomodoro'  #sys.argv[1]
+    reactor.connectTCP('irc.freenode.net', 6667, IrcBotFactory('#' + chan))
+    reactor.run()
