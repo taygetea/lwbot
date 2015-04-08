@@ -6,8 +6,8 @@ import bot
 class Pomodoro():
     """A pomodoro timer."""
     def __init__(self):
-        pomodoros = []
-        commands = {"start": self.pomodoro_start,
+        self.pomodoros = []
+        self.commands = {"start": self.pomodoro_start,
                     "clear": self.clear_pomodoros}
     def pomo(self):
         pass
