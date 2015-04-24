@@ -33,9 +33,10 @@ class IrcBot(irc.IRCClient):
 class IrcBotFactory(protocol.ClientFactory):
     protocol = IrcBot
 
-    def __init__(self, channel, nickname='Moloch'):
+    def __init__(self, channel, nickname='Elua'):
         self.channel = channel
         self.nickname = nickname
+        self.password = "password"
 
     def clientConnectionLost(self, connector, reason):
         print "Lost connection (%s), reconnecting." % (reason,)
