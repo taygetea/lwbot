@@ -18,13 +18,14 @@ class IrcBot(irc.IRCClient):
         print "Joined %s." % (channel,)
 
     def privmsg(self, user, channel, msg):
-        print msg
+        reload(plugins)
         if not user:
             return
         if self.username in msg:
             msg = re.compile(self.nickname + "[:,]* ?", re.I).sub('', msg)
             prefix = "%s: " % (user.split('!', 1)[0], )
-            self.msg(self.factory.channel, prefix + "this is a message")
+            evaluated = eval(msg)
+            self.msg(self.factory.channel, prefix + str(evaluated))
         else:
             prefix = ''
 
@@ -32,7 +33,7 @@ class IrcBot(irc.IRCClient):
 class IrcBotFactory(protocol.ClientFactory):
     protocol = IrcBot
 
-    def __init__(self, channel, nickname='lwbot'):
+    def __init__(self, channel, nickname='Moloch'):
         self.channel = channel
         self.nickname = nickname
 
@@ -46,6 +47,6 @@ class IrcBotFactory(protocol.ClientFactory):
 from twisted.internet import reactor
 
 if __name__ == "__main__":
-    chan = 'lw-pomodoro'  #sys.argv[1]
+    chan = 'lesswrong'  #sys.argv[1]
     reactor.connectTCP('irc.freenode.net', 6667, IrcBotFactory('#' + chan))
     reactor.run()
