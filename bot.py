@@ -21,7 +21,7 @@ class IrcBot(irc.IRCClient):
         reload(plugins)
         if not user:
             return
-        if self.username in msg:
+        if msg.startswith(self.nickname):
             msg = re.compile(self.nickname + "[:,]* ?", re.I).sub('', msg)
             prefix = "%s: " % (user.split('!', 1)[0], )
             evaluated = eval(msg)
@@ -48,6 +48,6 @@ class IrcBotFactory(protocol.ClientFactory):
 from twisted.internet import reactor
 
 if __name__ == "__main__":
-    chan = 'lesswrong'  #sys.argv[1]
+    chan = 'lw-prog'  #sys.argv[1]
     reactor.connectTCP('irc.freenode.net', 6667, IrcBotFactory('#' + chan))
     reactor.run()
