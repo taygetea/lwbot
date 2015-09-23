@@ -38,7 +38,7 @@ class Bantimer:
         self.banned = user
         self.channel = channel
     def opmsg(self):
-        pass
+        IrcBot.privmsg(self.op, self.channel, "ban " + self.user + "?")
 
 class IrcBotFactory(protocol.ClientFactory):
     protocol = IrcBot
