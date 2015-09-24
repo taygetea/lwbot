@@ -21,7 +21,6 @@ class IrcBot(irc.IRCClient):
     """
     def privmsg(self, user, channel, msg):
         reload(plugins)
-        print locals()
         print irc.parseModes(msg)
         if msg.startswith(self.nickname):
             msg = re.compile(self.nickname + "[:,]* ?", re.I).sub('', msg)
@@ -33,7 +32,9 @@ class IrcBot(irc.IRCClient):
             prefix = ''
 
 class Bantimer:
+
     def __init__(self, op, user, channel):
+        
         self.operator = op
         self.banned = user
         self.channel = channel
