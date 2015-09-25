@@ -34,10 +34,12 @@ class IrcBot(irc.IRCClient):
 class Bantimer:
 
     def __init__(self, op, user, channel):
-        
+
         self.operator = op
         self.banned = user
         self.channel = channel
+    def timer(self):
+
     def opmsg(self):
         IrcBot.privmsg(self.op, self.channel, "ban " + self.user + "?")
 
